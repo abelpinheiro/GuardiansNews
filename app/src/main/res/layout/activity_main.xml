@@ -5,14 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/darker_gray"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/empty_view"
+        style="@style/error_message_view"
+        tools:text="SEM NOTICIAS" />
+
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
     <ListView
         android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp"/>
+        style="@style/list_view" />
 
 </LinearLayout>

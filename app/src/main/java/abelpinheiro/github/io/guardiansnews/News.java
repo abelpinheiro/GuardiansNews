@@ -1,7 +1,5 @@
 package abelpinheiro.github.io.guardiansnews;
 
-import java.util.Date;
-
 public class News {
 
     private String mTitle;

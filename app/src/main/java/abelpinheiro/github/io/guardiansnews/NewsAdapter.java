@@ -47,9 +47,4 @@ public class NewsAdapter extends ArrayAdapter<News> {
         return rootView;
     }
 
-    /*private String formatDate(String dateObject){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-
-        return dateFormat.format(dateObject);
-    }*/
 }
