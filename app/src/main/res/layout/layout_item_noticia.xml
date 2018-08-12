@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="8dp">
 
     <TextView
         android:id="@+id/titulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="TITULO"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"/>
+        style="@style/title_view"
+        tools:text="TITULO" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,35 +18,22 @@
 
         <TextView
             android:id="@+id/secao"
-            android:layout_marginStart="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            tools:text="SEÇÃO"/>
+            style="@style/section_view"
+            tools:text="SEÇÃO" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="vertical">
+        <LinearLayout style="@style/container_author_data">
 
             <TextView
                 android:id="@+id/autor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/author_data_view"
                 android:layout_marginBottom="4dp"
-                android:layout_gravity="end"
-                tools:text="AUTOR"/>
+                tools:text="AUTOR" />
 
             <TextView
                 android:id="@+id/data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                tools:text="DATA"/>
+                style="@style/author_data_view"
+                android:textStyle="bold"
+                tools:text="DATA" />
 
         </LinearLayout>
 
