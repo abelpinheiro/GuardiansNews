@@ -8,9 +8,18 @@ import android.support.v4.content.AsyncTaskLoader;
 import java.util.List;
 
 public class NewsLoader extends AsyncTaskLoader<List<News>> {
+
+    //Url que estabelecerá a conexão HTTP
     private String mUrl;
 
-    public NewsLoader(@NonNull Context context, String url) {
+    /**
+     *
+     * Instancia um novo {@link NewsLoader}
+     *
+     * @param context contexto atual do app
+     * @param url link que será feito a requisição HTTP
+     */
+    NewsLoader(@NonNull Context context, String url) {
         super(context);
         mUrl = url;
     }
@@ -20,6 +29,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         forceLoad();
     }
 
+    //Vai ser executado em outra thread para realizar a conexão com a internet
     @Nullable
     @Override
     public List<News> loadInBackground() {

@@ -23,6 +23,7 @@ import java.util.Locale;
 
 public final class QueryUtils {
 
+    //Constantes utilizadas
     private static final int SUCCESSFUL_REQUEST = 200;
     private static final String NEW_DATE_PATTERN = "dd/MM/yyyy, HH:mm";
     private static final String DATE_NOT_FOUND = "Date not found";
@@ -33,18 +34,26 @@ public final class QueryUtils {
     private static final String AUTHOR_RETRIEVING_ERROR = "No author was found.";
     private static final String EMPTY_TEXT = "";
 
+    //Faz uma requisição HTTP para obter os dados e retorna a lista com todas as noticias
     public static List<News> fetchNewsData(String requestUrl){
+
+        //Cria um objeto URL
         URL url = createUrl(requestUrl);
+
+        //Tenta realizar uma requisição HTTP
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //Extrai do JSON obtido pela requisição todas as noticias e os insere na List
         List<News> news = extractFeatureFromJson(jsonResponse);
         return news;
     }
 
+    //Recebe a string do Url e o converte para um objeto URL
     private static URL createUrl(String stringUrl){
         URL url = null;
         try {
@@ -55,12 +64,16 @@ public final class QueryUtils {
         return url;
     }
 
+    //Estabelece uma conexão HTTP (tenta) com o servidor e retorna o JSON com os dados
     private static String makeHttpRequest(URL url) throws IOException{
+
+        //Verifica se a URL gerada não é nula
         String jsonResponse = "";
         if (url == null){
             return jsonResponse;
         }
 
+        //Tentativa de estabelecer uma conexão HTTP
         HttpURLConnection httpURLConnection = null;
         InputStream inputStream = null;
         try {
@@ -70,6 +83,7 @@ public final class QueryUtils {
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.connect();
 
+            //Se a conexão for bem sucedida, obter o InputStream e converter esse stream em uma String
             if (httpURLConnection.getResponseCode() == SUCCESSFUL_REQUEST){
                 inputStream = httpURLConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
@@ -79,10 +93,13 @@ public final class QueryUtils {
         }catch (IOException e){
             Log.e("QueryUtils.java", JSON_RETRIEVING_ERROR, e);
         }finally {
+
+            //Desconecta a conexão HTTP
             if (httpURLConnection != null){
                 httpURLConnection.disconnect();
             }
 
+            //Fecha o Stream
             if (inputStream != null){
                 inputStream.close();
             }
@@ -90,6 +107,7 @@ public final class QueryUtils {
         return jsonResponse;
     }
 
+    //Recebe o inputStream obtido na Query e o converte para uma String que contém o JSON inteiro da query
     private static String readFromStream(InputStream inputStream) throws IOException{
         StringBuilder output = new StringBuilder();
         if (inputStream != null){
@@ -104,7 +122,8 @@ public final class QueryUtils {
         return output.toString();
     }
 
-    public static List<News> extractFeatureFromJson(String jsonResponse){
+    //Recebe o JSON construido e extrai os elementos que vão formar um objeto News
+    private static List<News> extractFeatureFromJson(String jsonResponse){
         List newsList = new ArrayList<>();
         try {
             JSONObject raizJson = new JSONObject(jsonResponse);
@@ -115,6 +134,7 @@ public final class QueryUtils {
                 String title = currentNews.getString("webTitle");
                 String section =  currentNews.getString("sectionName");
 
+                //Tenta extrair a data da noticia, se tiver
                 String date = currentNews.getString("webPublicationDate");
                 String formattedDate = EMPTY_TEXT;
                 try {
@@ -123,6 +143,7 @@ public final class QueryUtils {
                     Log.i("QueryUtils.java", DATE_RETRIEVING_ERROR, e);
                 }
 
+                //tenta extrair o autor da noticia dentro da array de tags, se tiver
                 JSONArray tags = currentNews.getJSONArray("tags");
                 String author = EMPTY_TEXT;
                 try {
@@ -144,7 +165,8 @@ public final class QueryUtils {
         return newsList;
     }
 
-    public static String formatDate(String jsonDate){
+    //Formata a data padrão para dd/mm/yyy, HH:MM
+    private static String formatDate(String jsonDate){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN, Locale.US);
         SimpleDateFormat newSimpleDateFormat = new SimpleDateFormat(NEW_DATE_PATTERN, Locale.US);
         try {
