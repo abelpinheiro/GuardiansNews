@@ -2,6 +2,7 @@ package abelpinheiro.github.io.guardiansnews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
     //URL com que se fará a requisição
-    private final String mUrl = "https://content.guardianapis.com/search?order-by=newest&show-tags=contributor&api-key=cad70b6c-a54e-4540-8452-9fe723f82359";
+    private final String mUrl = "https://content.guardianapis.com/search";
 
     //Atributo do adapter
     private NewsAdapter mAdapter;
@@ -96,7 +98,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @NonNull
     @Override
     public Loader<List<News>> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return new NewsLoader(this, mUrl);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String searchTag = sharedPreferences.getString(getString(R.string.settings_search_tag_key),
+                getString(R.string.settings_search_tag_default));
+
+        String section = sharedPreferences.getString(getString(R.string.settings_section_key),
+                getString(R.string.settings_section_default));
+
+        
+
+        Uri baseUri = Uri.parse(mUrl);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        //if (!(searchTag.equals("none"))){
+            //uriBuilder.appendQueryParameter("s",searchTag);
+            //uriBuilder.appendQueryParameter("","");
+            uriBuilder.appendQueryParameter("order-by","newest");
+            uriBuilder.appendQueryParameter("show-tags","contributor");
+            uriBuilder.appendQueryParameter("api-key","cad70b6c-a54e-4540-8452-9fe723f82359");
+        //}
+
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     //É carregado quando o Loader termina sua execução
