@@ -5,9 +5,9 @@
     <string name="code_response_error">Error response code: </string>
     <string name="settings_menu_item">Settings</string>
     <string name="settings_title">News Settings</string>
-    <string name="settings_search_tag_label">Search by tag</string>
+    <string name="settings_search_tag_label">Search word/phrase</string>
     <string name="settings_search_tag_key">search_tag</string>
-    <string name="settings_search_tag_default">none</string>
+    <string name="settings_search_tag_default"> </string>
 
     <string name="settings_section_label">Choose section</string>
     <string name="settings_section_key" translatable="false">section</string>
@@ -17,14 +17,18 @@
     <string name="settings_section_sport_value" translatable="false">sport</string>
 
     <string name="settings_section_opinion_label">Opinion</string>
-    <string name="settings_section_opinion_value" translatable="false">opinion</string>
+    <string name="settings_section_opinion_value" translatable="false">commentisfree</string>
 
     <string name="settings_section_lifestyle_label">Lifestyle</string>
-    <string name="settings_section_lifestyle_value" translatable="false">lifestyle</string>
+    <string name="settings_section_lifestyle_value" translatable="false">lifeandstyle</string>
 
     <string name="settings_section_culture_label">Culture</string>
     <string name="settings_section_culture_value" translatable="false">culture</string>
 
     <string name="settings_section_all_label">All</string>
     <string name="settings_section_all_value" translatable="false">all</string>
+
+    <string name="api_key">cad70b6c-a54e-4540-8452-9fe723f82359</string>
+    <string name="parameter_contributor">contributor</string>
+    <string name="parameter_newest">newest</string>
 </resources>

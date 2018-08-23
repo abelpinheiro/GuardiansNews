@@ -106,18 +106,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         String section = sharedPreferences.getString(getString(R.string.settings_section_key),
                 getString(R.string.settings_section_default));
 
-        
+
 
         Uri baseUri = Uri.parse(mUrl);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
-        //if (!(searchTag.equals("none"))){
-            //uriBuilder.appendQueryParameter("s",searchTag);
-            //uriBuilder.appendQueryParameter("","");
-            uriBuilder.appendQueryParameter("order-by","newest");
-            uriBuilder.appendQueryParameter("show-tags","contributor");
-            uriBuilder.appendQueryParameter("api-key","cad70b6c-a54e-4540-8452-9fe723f82359");
-        //}
+        if (!(searchTag.equals(getString(R.string.settings_search_tag_default)))) {
+            uriBuilder.appendQueryParameter("q", searchTag);
+        }
+        if (!(section.equals(getString(R.string.settings_section_default)))) {
+            uriBuilder.appendQueryParameter("section", section);
+        }
+            uriBuilder.appendQueryParameter("order-by",getString(R.string.parameter_newest));
+            uriBuilder.appendQueryParameter("show-tags",getString(R.string.parameter_contributor));
+            uriBuilder.appendQueryParameter("api-key",getString(R.string.api_key));
 
         return new NewsLoader(this, uriBuilder.toString());
     }
